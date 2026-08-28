@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import anime from "animejs";
+import { animate } from "animejs";
 import { prefersReducedMotion } from "@/lib/animations";
 
 export default function DomainsSection() {
@@ -26,12 +26,12 @@ export default function DomainsSection() {
       if (entry.isIntersecting && !hasAnimated.current) {
         hasAnimated.current = true;
         
-        anime({
+        animate({
           targets: ".domain-item",
           opacity: [0, 1],
           translateX: [-30, 0],
           duration: 800,
-          delay: anime.stagger(100),
+          delay: stagger(100),
           easing: "easeOutExpo"
         });
       }

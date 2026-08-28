@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, User, LogOut } from "lucide-react";
-import anime from "animejs";
+import { animate } from "animejs";
 import Image from "next/image";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);

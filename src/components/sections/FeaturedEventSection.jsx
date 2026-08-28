@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import anime from "animejs";
+import { animate } from "animejs";
 import Link from "next/link";
 import { prefersReducedMotion } from "@/lib/animations";
 
@@ -45,7 +45,7 @@ export default function FeaturedEventSection() {
       if (entry.isIntersecting && !hasAnimated.current) {
         hasAnimated.current = true;
         
-        anime({
+        animate({
           targets: contentRef.current,
           opacity: [0, 1],
           translateY: [40, 0],

@@ -1,4 +1,4 @@
-import anime from "animejs";
+import { animate } from "animejs";
 import { useEffect, useRef } from "react";
 
 // Check if user prefers reduced motion for accessibility
@@ -9,8 +9,8 @@ export const prefersReducedMotion = () => {
 
 // Basic Fade Up
 export const animateFadeInUp = (targets, delay = 0) => {
-  if (prefersReducedMotion()) return anime.set(targets, { opacity: 1, translateY: 0 });
-  return anime({
+  if (prefersReducedMotion()) return animate.set(targets, { opacity: 1, translateY: 0 });
+  return animate({
     targets,
     translateY: [40, 0],
     opacity: [0, 1],
@@ -22,14 +22,14 @@ export const animateFadeInUp = (targets, delay = 0) => {
 
 // Staggered Grid Reveal
 export const animateStaggerReveal = (targets, staggerDelay = 100) => {
-  if (prefersReducedMotion()) return anime.set(targets, { opacity: 1, scale: 1 });
-  return anime({
+  if (prefersReducedMotion()) return animate.set(targets, { opacity: 1, scale: 1 });
+  return animate({
     targets,
     opacity: [0, 1],
     scale: [0.95, 1],
     translateY: [20, 0],
     duration: 800,
-    delay: anime.stagger(staggerDelay),
+    delay: animate.stagger(staggerDelay),
     easing: "easeOutElastic(1, 0.8)",
   });
 };
@@ -37,7 +37,7 @@ export const animateStaggerReveal = (targets, staggerDelay = 100) => {
 // Counter Animation for stats
 export const animateCounter = (target, start, end, duration = 2000) => {
   const obj = { val: start };
-  return anime({
+  return animate({
     targets: obj,
     val: end,
     duration,
@@ -84,7 +84,7 @@ export const useMagneticEffect = (strength = 0.3) => {
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
-      anime({
+      animate({
         targets: el,
         translateX: x * strength,
         translateY: y * strength,
@@ -95,7 +95,7 @@ export const useMagneticEffect = (strength = 0.3) => {
     };
 
     const leave = () => {
-      anime({
+      animate({
         targets: el,
         translateX: 0,
         translateY: 0,
@@ -120,7 +120,7 @@ export const useMagneticEffect = (strength = 0.3) => {
 // General Page Transition In
 export const pageTransitionIn = () => {
   if (prefersReducedMotion()) return;
-  return anime({
+  return animate({
     targets: "main",
     opacity: [0, 1],
     translateY: [20, 0],

@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect } from "react";
 import Link from "next/link";
-import anime from "animejs";
+import { animate } from "animejs";
 import { prefersReducedMotion } from "@/lib/animations";
 
 export default function CTASection() {
@@ -16,8 +16,7 @@ export default function CTASection() {
       if (entry.isIntersecting && !hasAnimated.current) {
         hasAnimated.current = true;
         
-        anime({
-          targets: contentRef.current,
+        animate( contentRef.current, {
           opacity: [0, 1],
           scale: [0.95, 1],
           translateY: [50, 0],

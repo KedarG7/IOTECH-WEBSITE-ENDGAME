@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import anime from "animejs";
+import { animate } from "animejs";
 import { prefersReducedMotion, animateCounter } from "@/lib/animations";
 
 export default function AboutSection() {
@@ -18,7 +18,7 @@ export default function AboutSection() {
       if (entry.isIntersecting && !hasAnimated.current) {
         hasAnimated.current = true;
         
-        const tl = anime.timeline({ easing: "easeOutExpo" });
+        const tl = animate.timeline({ easing: "easeOutExpo" });
 
         tl.add({
           targets: headingRef.current,

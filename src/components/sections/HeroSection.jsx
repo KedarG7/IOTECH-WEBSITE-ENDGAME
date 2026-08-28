@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useRef } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger } from "animejs";
 import Link from "next/link";
 import { prefersReducedMotion } from "@/lib/animations";
+import SpinningLogo from "../SpinningLogo";
 
 export default function HeroSection() {
   const titleRef = useRef(null);
@@ -12,9 +13,11 @@ export default function HeroSection() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    const tl = anime.timeline({
-      easing: "easeOutExpo",
-    });
+  const tl = createTimeline({
+  defaults: {
+    ease: "out(4)",
+  },
+});
 
     const titleChars = titleRef.current.querySelectorAll(".char");
     
@@ -24,7 +27,7 @@ export default function HeroSection() {
       rotateX: [-90, 0],
       opacity: [0, 1],
       duration: 1200,
-      delay: anime.stagger(100, { start: 200 })
+      delay: stagger(100, { start: 200 })
     })
     .add({
       targets: subtitleRef.current,
@@ -57,6 +60,7 @@ export default function HeroSection() {
           className="text-7xl md:text-9xl lg:text-[10rem] font-display font-black text-primary mb-2 text-glow-blue tracking-tighter leading-none"
         >
           {/* Component to be added  */}
+          <SpinningLogo />
           {splitText("IOTECH")}
         </h1>
         
