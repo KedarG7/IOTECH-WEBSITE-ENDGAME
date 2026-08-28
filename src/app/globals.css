@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-space-grotesk), sans-serif;
+  --font-display: var(--font-montserrat), sans-serif;
+  
+  --color-background: #050505;
+  --color-foreground: #f3f4f6;
+  
+  --color-primary: #00d2ff;
+  --color-primary-hover: #33e1ff;
+  --color-surface: #121212;
+  --color-surface-card: #1a1a1a;
+  --color-surface-border: #262626;
+  --color-surface-hover: #222222;
+  
+  --color-accent-orange: #ff6600;
+  --color-accent-violet: #bd00ff;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #f3f4f6;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00d2ff;
+  border-color: #33e1ff;
+}
+
+/* Premium Utilities */
+.glass {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-nav {
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
+}
+
+.glow-blue-hover:hover {
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.25);
+  border-color: rgba(0, 210, 255, 0.5);
+}
+
+.glow-violet {
+  box-shadow: 0 0 20px rgba(189, 0, 255, 0.1);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+}
+
+/* Geometric Tech Grid Patterns */
+.tech-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.tech-dots {
+  background-size: 25px 25px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Hover effects */
+.hover-perspective {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.hover-perspective:hover {
+  transform: translateY(-4px) scale(1.01) rotateX(1deg) rotateY(-1deg);
+}
+
+/* Cursor hiding on fine pointer devices */
+@media (pointer: fine) {
+  .custom-cursor-active, .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
