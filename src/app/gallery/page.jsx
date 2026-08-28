@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger, utils } from "animejs";
 import Image from "next/image";
 import { X, ZoomIn } from "lucide-react";
 import { prefersReducedMotion } from "@/lib/animations";
@@ -21,20 +21,18 @@ export default function GalleryPage() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    anime({
-      targets: headerRef.current.querySelectorAll(".anim-elem"),
+    animate(headerRef.current.querySelectorAll(".anim-elem"), {
       translateY: [50, 0],
       opacity: [0, 1],
       duration: 1000,
-      delay: anime.stagger(150),
+      delay: stagger(150),
       easing: "easeOutExpo"
     });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          anime({
-            targets: entry.target,
+          animate(entry.target, {
             scale: [0.85, 1],
             opacity: [0, 1],
             translateY: [30, 0],
@@ -55,14 +53,12 @@ export default function GalleryPage() {
   const openLightbox = (img) => {
     setSelectedImage(img);
     setTimeout(() => {
-      anime({
-        targets: ".lightbox-overlay",
+      animate(".lightbox-overlay", {
         opacity: [0, 1],
         duration: 400,
         easing: "easeOutQuad"
       });
-      anime({
-        targets: ".lightbox-image",
+      animate(".lightbox-image", {
         scale: [0.8, 1],
         opacity: [0, 1],
         duration: 600,
@@ -73,14 +69,12 @@ export default function GalleryPage() {
   };
 
   const closeLightbox = () => {
-    anime({
-      targets: ".lightbox-overlay",
+    animate(".lightbox-overlay", {
       opacity: [1, 0],
       duration: 300,
       easing: "easeOutQuad"
     });
-    anime({
-      targets: ".lightbox-image",
+    animate(".lightbox-image", {
       scale: [1, 0.9],
       opacity: [1, 0],
       duration: 300,

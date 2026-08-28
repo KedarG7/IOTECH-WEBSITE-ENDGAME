@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger, utils } from "animejs";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
@@ -69,21 +69,19 @@ export default function EventsClient() {
   useEffect(() => {
     if (loading || prefersReducedMotion()) return;
 
-    anime({
-      targets: headerRef.current.querySelectorAll(".anim-elem"),
+    animate(headerRef.current.querySelectorAll(".anim-elem"), {
       translateY: [50, 0],
       opacity: [0, 1],
       duration: 1000,
-      delay: anime.stagger(150),
+      delay: stagger(150),
       easing: "easeOutExpo"
     });
 
-    anime({
-      targets: ".event-card",
+    animate(".event-card", {
       translateY: [50, 0],
       opacity: [0, 1],
       duration: 800,
-      delay: anime.stagger(150, { start: 300 }),
+      delay: stagger(150, { start: 300 }),
       easing: "easeOutExpo"
     });
 

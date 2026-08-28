@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, User, LogOut } from "lucide-react";
-import { animate } from "animejs";
+import { animate, stagger } from "animejs";
 import Image from "next/image";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,11 +40,10 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      anime({
-        targets: ".mobile-menu-item",
+      animate(".mobile-menu-item", {
         translateX: [50, 0],
         opacity: [0, 1],
-        delay: anime.stagger(100),
+        delay: stagger(100),
         duration: 600,
         easing: "easeOutExpo"
       });

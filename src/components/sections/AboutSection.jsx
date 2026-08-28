@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { animate } from "animejs";
+import { animate, stagger } from "animejs";
 import { prefersReducedMotion, animateCounter } from "@/lib/animations";
 
 export default function AboutSection() {
@@ -31,7 +31,7 @@ export default function AboutSection() {
           opacity: [0, 1],
           translateX: [-30, 0],
           duration: 800,
-          delay: anime.stagger(200)
+          delay: stagger(200)
         }, "-=400")
         .add({
           targets: statsRef.current.querySelectorAll(".stat-card"),
@@ -39,7 +39,7 @@ export default function AboutSection() {
           scale: [0.8, 1],
           translateY: [20, 0],
           duration: 800,
-          delay: anime.stagger(150),
+          delay: stagger(150),
           begin: () => {
             const numbers = statsRef.current.querySelectorAll(".stat-num");
             numbers.forEach(el => {

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger, utils } from "animejs";
 import { prefersReducedMotion } from "@/lib/animations";
 
 export default function SchedulePage() {
@@ -26,12 +26,11 @@ export default function SchedulePage() {
   useEffect(() => {
     if (loading || prefersReducedMotion()) return;
 
-    anime({
-      targets: headerRef.current.querySelectorAll(".anim-elem"),
+    animate(headerRef.current.querySelectorAll(".anim-elem"), {
       translateY: [50, 0],
       opacity: [0, 1],
       duration: 1000,
-      delay: anime.stagger(150),
+      delay: stagger(150),
       easing: "easeOutExpo"
     });
 
@@ -39,8 +38,7 @@ export default function SchedulePage() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const isLeft = entry.target.classList.contains("timeline-left");
-          anime({
-            targets: entry.target,
+          animate(entry.target, {
             translateX: [isLeft ? -50 : 50, 0],
             opacity: [0, 1],
             duration: 800,

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger, utils } from "animejs";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -74,7 +74,7 @@ export default function EventDetailsClient({ slug }) {
   useEffect(() => {
     if (loading || !event || prefersReducedMotion()) return;
 
-    const tl = anime.timeline({ easing: "easeOutExpo" });
+    const tl = createTimeline({ easing: "easeOutExpo" });
 
     tl.add({
       targets: heroRef.current,
@@ -87,7 +87,7 @@ export default function EventDetailsClient({ slug }) {
       opacity: [0, 1],
       translateY: [30, 0],
       duration: 800,
-      delay: anime.stagger(150)
+      delay: stagger(150)
     }, "-=600");
 
   }, [loading, event]);
@@ -125,8 +125,7 @@ export default function EventDetailsClient({ slug }) {
       }
 
       setRegistered(true);
-      anime({
-        targets: ".success-modal",
+      animate(".success-modal", {
         scale: [0.8, 1],
         opacity: [0, 1],
         duration: 600,

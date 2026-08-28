@@ -45,8 +45,8 @@ export default function FeaturedEventSection() {
       if (entry.isIntersecting && !hasAnimated.current) {
         hasAnimated.current = true;
         
-        animate({
-          targets: contentRef.current,
+        animate(contentRef.current, {
+          
           opacity: [0, 1],
           translateY: [40, 0],
           scale: [0.97, 1],

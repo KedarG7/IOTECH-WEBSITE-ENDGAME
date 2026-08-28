@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { animate } from "animejs";
+import { animate, stagger } from "animejs";
 import { prefersReducedMotion } from "@/lib/animations";
 
 export default function DomainsSection() {

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import anime from "animejs";
+import { animate, createTimeline, stagger, utils } from "animejs";
 import Image from "next/image";
 import { Code2, Briefcase, Globe } from "lucide-react";
 import { prefersReducedMotion } from "@/lib/animations";
@@ -30,25 +30,23 @@ export default function TeamPage() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    anime({
-      targets: headerRef.current.querySelectorAll(".anim-elem"),
+    animate(headerRef.current.querySelectorAll(".anim-elem"), {
       translateY: [50, 0],
       opacity: [0, 1],
       duration: 1000,
-      delay: anime.stagger(150),
+      delay: stagger(150),
       easing: "easeOutExpo"
     });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          anime({
-            targets: entry.target.querySelectorAll(".team-card"),
+          animate(entry.target.querySelectorAll(".team-card"), {
             translateY: [50, 0],
             opacity: [0, 1],
             scale: [0.9, 1],
             duration: 800,
-            delay: anime.stagger(100),
+            delay: stagger(100),
             easing: "easeOutBack(1.2)"
           });
           observer.unobserve(entry.target);
