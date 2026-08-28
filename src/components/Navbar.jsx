@@ -72,24 +72,23 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-nav py-4" : "bg-transparent py-6"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-4" : "bg-transparent py-6"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link
-                href="/"
-                className="flex items-center custom-cursor-hover hover-perspective"
+            href="/"
+            className="flex items-center custom-cursor-hover hover-perspective"
           >
             <Image
               src="/white_text-removebg.png"
               alt="IOTech Logo"
-              width={240}
-              height={80}
+              width={1024}
+              height={316}
               priority
-              className="h-auto w-[240px] object-contain"
+              className="w-[240px] h-auto object-contain"
             />
-            </Link>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
@@ -97,9 +96,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.path}
-                className={`text-sm font-semibold uppercase tracking-widest hover-perspective custom-cursor-hover transition-colors ${
-                  pathname === link.path ? "text-primary text-glow-blue" : "text-foreground/80 hover:text-white"
-                }`}
+                className={`text-sm font-semibold uppercase tracking-widest hover-perspective custom-cursor-hover transition-colors ${pathname === link.path ? "text-primary text-glow-blue" : "text-foreground/80 hover:text-white"
+                  }`}
               >
                 {link.name}
               </Link>
