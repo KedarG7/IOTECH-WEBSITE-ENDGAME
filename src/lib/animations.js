@@ -35,13 +35,16 @@ export const animateStaggerReveal = (targets, staggerDelay = 100) => {
 // Counter Animation for stats
 export const animateCounter = (target, start, end, duration = 2000) => {
   const obj = { val: start };
-  return animate(obj, {val: end,
+  return animate(obj, {
+    val: end,
     duration,
-    easing: "easeOutExpo",
+    ease: "out(4)",
     round: 1,
-    update: function() {
-      if (target) target.innerHTML = obj.val;
-    }});
+    // v4 uses onUpdate instead of update
+    onUpdate: () => {
+      if (target) target.innerHTML = Math.round(obj.val);
+    },
+  });
 };
 
 // React Hook for intersection-based scroll reveal

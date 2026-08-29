@@ -46,6 +46,8 @@ function SpinningLogo() {
         });
       });
     });
+    // Spin logo once on initial load
+    scope.current?.methods.rotateLogo(1);
 
     return () => {
       scope.current?.revert();
@@ -65,7 +67,7 @@ function SpinningLogo() {
   return (
     <div
       ref={root}
-      className="flex min-h-screen w-full items-center justify-center"
+      className="flex items-center justify-center mb-4"
     >
       <img
         src="/Logo.png"
@@ -74,8 +76,12 @@ function SpinningLogo() {
         draggable={false}
         className="
           logo
-          h-40
-          w-40
+          h-24
+          w-24
+          sm:h-32
+          sm:w-32
+          md:h-40
+          md:w-40
           cursor-pointer
           select-none
           object-contain

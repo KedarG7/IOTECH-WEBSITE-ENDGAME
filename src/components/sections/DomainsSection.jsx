@@ -1,91 +1,428 @@
+
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import { animate, stagger } from "animejs";
 import { prefersReducedMotion } from "@/lib/animations";
 
 export default function DomainsSection() {
   const [activeDomain, setActiveDomain] = useState(null);
+
   const sectionRef = useRef(null);
   const hasAnimated = useRef(false);
 
   const domains = [
-    { id: "01", name: "AI / ML", tech: "Python, TensorFlow, PyTorch", desc: "Building intelligent systems and predictive models." },
-    { id: "02", name: "IoT", tech: "C++, Arduino, Raspberry Pi", desc: "Connecting the physical world with digital networks." },
-    { id: "03", name: "Web Development", tech: "React, Next.js, Node.js", desc: "Crafting scalable and interactive web platforms." },
-    { id: "04", name: "Cybersecurity", tech: "Kali Linux, Wireshark, Metasploit", desc: "Securing systems and ethical hacking." },
-    { id: "05", name: "Blockchain", tech: "Solidity, Web3.js, Ethereum", desc: "Decentralized applications and smart contracts." },
-    { id: "06", name: "Robotics", tech: "ROS, Python, C++", desc: "Designing autonomous mechanical systems." },
-    { id: "07", name: "Cloud", tech: "AWS, Docker, Kubernetes", desc: "Deploying and scaling distributed architectures." },
-    { id: "08", name: "UI/UX", tech: "Figma, Framer", desc: "Designing premium user interfaces and experiences." },
+    {
+      id: "01",
+      name: "AI / ML",
+      tech: "Python, TensorFlow, PyTorch",
+      desc: "Building intelligent systems and predictive models.",
+    },
+    {
+      id: "02",
+      name: "IoT",
+      tech: "C++, Arduino, Raspberry Pi",
+      desc: "Connecting the physical world with digital networks.",
+    },
+    {
+      id: "03",
+      name: "Web Development",
+      tech: "React, Next.js, Node.js",
+      desc: "Crafting scalable and interactive web platforms.",
+    },
+    {
+      id: "04",
+      name: "Cybersecurity",
+      tech: "Kali Linux, Wireshark, Metasploit",
+      desc: "Securing systems through ethical hacking and defensive security.",
+    },
+    {
+      id: "05",
+      name: "Blockchain",
+      tech: "Solidity, Web3.js, Ethereum",
+      desc: "Exploring decentralized applications and smart contracts.",
+    },
+    {
+      id: "06",
+      name: "Robotics",
+      tech: "ROS, Python, C++",
+      desc: "Designing autonomous and intelligent mechanical systems.",
+    },
+    {
+      id: "07",
+      name: "Cloud",
+      tech: "AWS, Docker, Kubernetes",
+      desc: "Deploying and scaling modern distributed architectures.",
+    },
+    {
+      id: "08",
+      name: "UI/UX",
+      tech: "Figma, Framer",
+      desc: "Designing premium digital interfaces and experiences.",
+    },
   ];
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    const section = sectionRef.current;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !hasAnimated.current) {
+    if (!section) return;
+
+    /*
+     * Respect user's reduced-motion preference.
+     */
+    if (prefersReducedMotion()) {
+      section
+        .querySelectorAll(".domain-item")
+        .forEach((element) => {
+          element.style.opacity = "1";
+        });
+
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || hasAnimated.current) {
+          return;
+        }
+
         hasAnimated.current = true;
-        
-        animate({
-          targets: ".domain-item",
+
+        const items = section.querySelectorAll(".domain-item");
+
+        /*
+         * Anime.js v4
+         *
+         * ❌ animate({
+         *      targets: ...
+         *    })
+         *
+         * ✅ animate(target, {...})
+         */
+        animate(items, {
           opacity: [0, 1],
-          translateX: [-30, 0],
+          x: [-30, 0],
           duration: 800,
           delay: stagger(100),
-          easing: "easeOutExpo"
+          ease: "out(4)",
         });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
       }
-    }, { threshold: 0.1 });
+    );
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    
-    return () => observer.disconnect();
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 relative z-10 border-t border-surface-border bg-background">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-16 tracking-wide text-center">
-          OUR <span className="text-primary text-glow-blue">DOMAINS</span>
-        </h2>
+    <section
+      ref={sectionRef}
+      id="domains"
+      className="
+        relative
+        z-10
+        overflow-hidden
+        border-t
+        border-surface-border
+        bg-background
+        py-24
+        md:py-32
+      "
+    >
+      {/* Background glow */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-20
+          h-80
+          w-80
+          -translate-x-1/2
+          rounded-full
+          bg-primary/5
+          blur-[120px]
+        "
+      />
 
-        <div className="flex flex-col space-y-2 max-w-4xl mx-auto">
-          {domains.map((domain) => (
-            <div
-              key={domain.id}
-              className="domain-item opacity-0 group relative border-b border-surface-border last:border-0"
-              onMouseEnter={() => setActiveDomain(domain.id)}
-              onMouseLeave={() => setActiveDomain(null)}
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        {/* =========================
+            SECTION HEADER
+        ========================== */}
+        <div className="mb-16 text-center">
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-primary/50" />
+
+            <span
+              className="
+                text-xs
+                font-bold
+                uppercase
+                tracking-[0.3em]
+                text-primary
+              "
             >
-              <div className="flex items-center justify-between py-6 cursor-pointer custom-cursor-hover">
-                <div className="flex items-center space-x-6">
-                  <span className="text-sm font-display font-black text-foreground/40 group-hover:text-primary transition-colors duration-300">
-                    {domain.id}
-                  </span>
-                  <span className="text-2xl md:text-4xl font-display font-bold text-white group-hover:translate-x-4 transition-transform duration-300">
-                    {domain.name}
-                  </span>
-                </div>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block text-right">
-                  <span className="text-xs tracking-[0.2em] text-primary uppercase font-bold">Explore</span>
-                </div>
-              </div>
+              What We Explore
+            </span>
 
-              {/* Expandable Content */}
-              <div 
-                className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  activeDomain === domain.id ? "max-h-48 opacity-100 mb-6" : "max-h-0 opacity-0"
-                }`}
+            <span className="h-px w-8 bg-primary/50" />
+          </div>
+
+          <h2
+            className="
+              text-4xl
+              font-black
+              tracking-tight
+              text-white
+              sm:text-5xl
+              md:text-6xl
+            "
+          >
+            OUR{" "}
+            <span
+              className="
+                text-primary
+                [text-shadow:0_0_25px_rgba(59,130,246,0.45)]
+              "
+            >
+              DOMAINS
+            </span>
+          </h2>
+
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-2xl
+              text-base
+              leading-7
+              text-foreground/60
+              md:text-lg
+            "
+          >
+            Explore the technologies and disciplines where
+            our community learns, experiments, and builds.
+          </p>
+        </div>
+
+        {/* =========================
+            DOMAIN LIST
+        ========================== */}
+        <div className="mx-auto max-w-5xl">
+          {domains.map((domain) => {
+            const isActive = activeDomain === domain.id;
+
+            return (
+              <div
+                key={domain.id}
+                className="
+                  domain-item
+                  group
+                  relative
+                  border-b
+                  border-surface-border
+                  opacity-0
+                  last:border-b-0
+                "
+                onMouseEnter={() =>
+                  setActiveDomain(domain.id)
+                }
+                onMouseLeave={() =>
+                  setActiveDomain(null)
+                }
               >
-                <div className="pl-12 md:pl-16 pr-6">
-                  <p className="text-foreground/80 mb-2 font-semibold text-lg">{domain.desc}</p>
-                  <p className="text-primary/80 text-sm tracking-widest uppercase font-bold">{domain.tech}</p>
+                {/* Main row */}
+                <div
+                  className="
+                    flex
+                    cursor-pointer
+                    items-center
+                    justify-between
+                    gap-6
+                    py-6
+                    md:py-8
+                  "
+                >
+                  {/* Left */}
+                  <div className="flex min-w-0 items-center gap-5 md:gap-8">
+                    {/* Number */}
+                    <span
+                      className="
+                        shrink-0
+                        text-xs
+                        font-black
+                        tracking-widest
+                        text-foreground/30
+                        transition-colors
+                        duration-300
+                        group-hover:text-primary
+                        md:text-sm
+                      "
+                    >
+                      {domain.id}
+                    </span>
+
+                    {/* Domain name */}
+                    <span
+                      className="
+                        truncate
+                        text-xl
+                        font-bold
+                        tracking-tight
+                        text-white
+                        transition-all
+                        duration-500
+                        group-hover:translate-x-2
+                        group-hover:text-primary
+                        sm:text-2xl
+                        md:text-4xl
+                      "
+                    >
+                      {domain.name}
+                    </span>
+                  </div>
+
+                  {/* Right side */}
+                  <div
+                    className="
+                      hidden
+                      shrink-0
+                      items-center
+                      gap-4
+                      md:flex
+                    "
+                  >
+                    <span
+                      className="
+                        text-[10px]
+                        font-bold
+                        uppercase
+                        tracking-[0.25em]
+                        text-primary/0
+                        transition-all
+                        duration-300
+                        group-hover:text-primary
+                      "
+                    >
+                      Explore
+                    </span>
+
+                    {/* Arrow */}
+                    <span
+                      className="
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-surface-border
+                        text-sm
+                        text-foreground/40
+                        transition-all
+                        duration-300
+                        group-hover:border-primary/50
+                        group-hover:bg-primary/10
+                        group-hover:text-primary
+                      "
+                    >
+                      →
+                    </span>
+                  </div>
                 </div>
+
+                {/* =========================
+                    EXPANDED CONTENT
+                ========================== */}
+                <div
+                  className={`
+                    grid
+                    overflow-hidden
+                    transition-all
+                    duration-500
+                    ease-[cubic-bezier(0.16,1,0.3,1)]
+                    ${
+                      isActive
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }
+                  `}
+                >
+                  <div className="min-h-0">
+                    <div className="pb-7 pl-12 pr-4 md:pb-9 md:pl-20 md:pr-12">
+                      <div className="max-w-2xl">
+                        <p
+                          className="
+                            mb-4
+                            text-base
+                            font-medium
+                            leading-7
+                            text-foreground/70
+                            md:text-lg
+                          "
+                        >
+                          {domain.desc}
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-2">
+                          {domain.tech
+                            .split(", ")
+                            .map((technology) => (
+                              <span
+                                key={technology}
+                                className="
+                                  rounded-full
+                                  border
+                                  border-primary/20
+                                  bg-primary/5
+                                  px-3
+                                  py-1.5
+                                  text-[10px]
+                                  font-bold
+                                  uppercase
+                                  tracking-wider
+                                  text-primary/80
+                                  md:text-xs
+                                "
+                              >
+                                {technology}
+                              </span>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hover indicator */}
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    h-px
+                    w-0
+                    bg-primary
+                    shadow-[0_0_10px_rgba(59,130,246,0.6)]
+                    transition-all
+                    duration-500
+                    group-hover:w-full
+                  "
+                />
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+

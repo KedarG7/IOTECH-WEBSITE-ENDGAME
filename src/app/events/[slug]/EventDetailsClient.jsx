@@ -76,14 +76,12 @@ export default function EventDetailsClient({ slug }) {
 
     const tl = createTimeline({ easing: "easeOutExpo" });
 
-    tl.add({
-      targets: heroRef.current,
+    tl.add(heroRef.current, {
       opacity: [0, 1],
       translateY: [50, 0],
       duration: 1000
     })
-    .add({
-      targets: contentRef.current.querySelectorAll(".anim-content"),
+    .add(contentRef.current.querySelectorAll(".anim-content"), {
       opacity: [0, 1],
       translateY: [30, 0],
       duration: 800,

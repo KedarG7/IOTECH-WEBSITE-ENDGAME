@@ -3,6 +3,7 @@ import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import Navbar from "@/components/Navbar";
+import LoadingProvider from "@/components/LoadingProvider";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -31,8 +32,10 @@ export default function RootLayout({ children }) {
       >
         <InteractiveBackground />
         <CustomCursor />
-        <Navbar />
-        {children}
+        <LoadingProvider>
+          <Navbar />
+          {children}
+        </LoadingProvider>
       </body>
     </html>
   );
