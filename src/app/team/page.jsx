@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { animate, createTimeline, stagger, utils } from "animejs";
+import anime from "animejs";
 import Image from "next/image";
 import { Code2, Briefcase, Globe } from "lucide-react";
 import { prefersReducedMotion } from "@/lib/animations";
@@ -9,13 +9,18 @@ export default function TeamPage() {
   const headerRef = useRef(null);
 
   const leads = [
-    { name: "Charan Shetty", role: "President", domain: "IOTECH", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" },
-    { name: "Parth Narse", role: "Tech Lead", domain: "Technical", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" },
-    { name: "Marcus Johnson", role: "Tech Lead", domain: "Engineering", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus" },
-    { name: "Emma Watson", role: "Design Lead", domain: "UI/UX", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma" },
-    { name: "Emma Watson", role: "Design Lead", domain: "UI/UX", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma" },
-    { name: "Emma Watson", role: "Design Lead", domain: "UI/UX", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma" },
-
+    { name: "Charan Shetty", role: "President", domain: "IOTECH", img: "/team/charan.jpg" },
+    { name: "Kedar Gurav", role: "Co-Lead", domain: "IOTECH", img: "/team/kedar.jpg" },
+    { name: "Kshitija Khilari", role: "Technical Lead", domain: "Technical", img: "/team/kshitija.jpg", },
+    { name: "Parth Narse", role: "Technical Lead", domain: "Technical", img: "/team/parth.jpg" },
+    { name: "Payal Hasbe", role: "Media Lead", domain: "Media", img: "/team/payal.jpg" },
+    { name: "Chinmay Chiplunkar", role: "Media Lead", domain: "Media", img: "/team/chinmay.jpg" },
+    { name: "Purva Atigre", role: "Design Lead", domain: "UI/UX", img: "/team/purva.jpg" },
+    { name: "Komal Shirke", role: "Design Lead", domain: "UI/UX", img: "/team/komal.jpg" },
+    { name: "Nidhi Jadhav", role: "Management Lead", domain: "Management", img: "/team/nidhi.jpg" },
+    { name: "Bhagyesh Joshi", role: "Management Lead", domain: "Management", img: "/team/bhagyesh.jpg" },
+    { name: "Anushka Sonawane", role: "Documentation Lead", domain: "Documentation", img: "/team/anushka.jpg" },
+    { name: "Aditya Shirke", role: "Documentation Lead", domain: "Documentation", img: "/team/aditya.jpg" },
   ];
 
   const coLeads = [
@@ -63,17 +68,17 @@ export default function TeamPage() {
   const TeamCard = ({ member }) => (
     <div className="team-card opacity-0 glass rounded-2xl p-6 border border-surface-border flex flex-col items-center text-center group hover-perspective glow-blue transition-all duration-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      
+
       <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-primary/30 group-hover:border-primary transition-colors duration-300 relative z-10 bg-surface-card">
-        <Image 
-          src={member.img} 
-          alt={member.name} 
-          width={128} 
-          height={128} 
-          className="object-cover group-hover:scale-110 transition-transform duration-500"
+        <img
+          src={member.img}
+          alt={member.name}
+          width={128}
+          height={128}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
       </div>
-      
+
       <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-primary transition-colors z-10">
         {member.name}
       </h3>
@@ -83,7 +88,7 @@ export default function TeamPage() {
       <p className="text-foreground/60 text-sm mb-6 z-10">
         {member.domain}
       </p>
-      
+
       <div className="flex space-x-4 z-10 mt-auto">
         <a href="#" className="text-foreground/40 hover:text-white transition-colors custom-cursor-hover">
           <Code2 size={20} />
@@ -115,7 +120,7 @@ export default function TeamPage() {
             <h2 className="text-3xl font-display font-bold text-white tracking-widest uppercase">Core Leads</h2>
             <div className="h-px bg-surface-border flex-grow"></div>
           </div>
-          
+
           <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {leads.map((lead, idx) => (
               <TeamCard key={idx} member={lead} />
@@ -128,7 +133,7 @@ export default function TeamPage() {
             <h2 className="text-3xl font-display font-bold text-white tracking-widest uppercase">Co-Leads</h2>
             <div className="h-px bg-surface-border flex-grow"></div>
           </div>
-          
+
           <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {coLeads.map((lead, idx) => (
               <TeamCard key={idx} member={lead} />
