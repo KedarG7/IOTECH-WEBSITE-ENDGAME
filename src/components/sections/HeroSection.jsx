@@ -65,10 +65,9 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-24 pb-12">
       {/* College branding banner - placed in normal flow to prevent overlap */}
-      <div className="w-full max-w-4xl mx-auto z-30 mb-8 sm:mb-12">
-        <CollegeBanner />
-      </div>
-
+<div className="w-full max-w-4xl mx-auto flex justify-center z-30 mt-6 sm:mt-10 lg:mt-14 mb-8 sm:mb-12">
+  <CollegeBanner />
+</div>
       <div
         className="z-10 w-full max-w-5xl mx-auto flex flex-col items-center flex-1 justify-center"
         style={{ perspective: "1000px" }}

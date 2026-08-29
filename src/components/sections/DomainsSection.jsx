@@ -315,27 +315,7 @@ export default function DomainsSection() {
                     </span>
 
                     {/* Arrow */}
-                    <span
-                      className="
-                        flex
-                        h-9
-                        w-9
-                        items-center
-                        justify-center
-                        rounded-full
-                        border
-                        border-surface-border
-                        text-sm
-                        text-foreground/40
-                        transition-all
-                        duration-300
-                        group-hover:border-primary/50
-                        group-hover:bg-primary/10
-                        group-hover:text-primary
-                      "
-                    >
-                      →
-                    </span>
+                   
                   </div>
                 </div>
 
